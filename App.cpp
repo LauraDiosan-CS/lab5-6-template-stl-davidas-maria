@@ -1,82 +1,77 @@
-#include "Repo.h"
-#include "Entitate.h"
 #include <iostream>
-#include"testeEntitate.h"
-#include"testeRepo.h"
-
+#include <string>
+#include "Entitate.h"
+#include "Repo.h"
+#include "Teste.h"
+#include <conio.h> 
+#include "Service.h"
+#include "UI.h"
+#include "RepoFile.h"
 using namespace std;
-void read(Produs& c)
-{
-	int nrInmatriculare;
-	string numeProfesor,status;
-	cout << " Introduceti un client nou: " << "\n";
-	cout << " nume profesor =";
-	cin >> numeProfesor;
-	cout << " status = ";
-	cin >> status;
-	cout << " nr inatriculare = ";
-	cin >> nrInmatriculare;
-	c = Produs(numeProfesor, status, nrInmatriculare);
-}
 
-/*
-void print(Produs e) {
-	cout << " Date : ";
-	cout << " Nume: " << e.get_numeProfesor() << " - status -" << e.get_status() << "- nr inmatriculare - " << e.get_nrInmatriculare() << "\n";
-}
-
-void printAll(Repo r)
-{
-	return r.getALL();
-	cout << "date: " << "\n";
-	vector<Produs>rep = r.getALL();
-	for (int i = 0; i < rep.size(); i++)
-		print(rep[i]);
-}
-*/
-
-void optiuni()
-{
-	cout << "0. Exit" << endl << "1.Citire lista :" << endl << "2.Afisare" << endl;
-	cout  << "3.Teste" << endl;
-}
-int main()
-{
-	Repo<Produs> v2;
-	bool ok = true;
-	int op;
-	optiuni();
-	while (ok == true)
-	{
-		cout << "operatia aleasa este ";
-		cin >> op;
-		if (op == 0)
-		{
-			ok = false;
+int main() {
+	string c;
+	UI ui;
+	Controller ctrl;
+	bool stop = false;
+	while (stop == false) {
+		ui.afisareMeniu();
+		c = ui.get_input();
+		if (c == "repo") {
+			string c;
+			ui.produse(ctrl);
+			bool stop1 = false;
+			while (stop1 == false) {
+				ui.afisareMeniu1();
+				c = ui.get_input();
+				if (c == "adauga") {
+					ui.addElem(ctrl);
+				}
+				if (c == "cumpara") {
+					ui.alegereProdus(ctrl);
+				}
+				if (c == "afisare") {
+					ui.afisare(ctrl);
+				}
+				if (c == "teste") {
+					test();
+				}
+				if (c == "exit") {
+					stop1 = true;
+				}
+			}
 		}
-		if (op == 1)
-		{ 
-			Produs p;
-			read(p);
+		if (c == "repoFile") {
+			string filename = "Laborator.txt";
+			int nrlines = 10;
+			bool stop2 = false;
+			while (stop2 == false) {
+				ui.afisareMeniu2();
+				c = ui.get_input();
+				ctrl.readRepoFromFile("Laborator.txt", nrlines);
+				//ui.addElemFis(ctrl);
+				//if (c == "adauga") {
+					//ui.addElemFis(ctrl);
+			//	}
+				if (c == "cumpara") {
+					ui.alegereProdus1(ctrl);
+				}
+				if (c == "afisare") {
+					ui.afisareFisier(ctrl);
+				}
+				if (c == "teste") {
+					test();
+				}
+				if (c == "exit") {
+					stop2 = true;
+				}
+			}
 		}
-		if (op == 2)
-		{    
-			//Produs p;
-			//getALL();
-			//printVector<Produs, 5>(v2);
-		}
-		
-		if (op == 3)
-		{
-			test_entitate();
-			test_repo();
-
+		if (c == "exit") {
+			stop = true;
 		}
 	}
 
-
-
-
-
 	return 0;
+	//_getch();
 }

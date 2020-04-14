@@ -1,0 +1,12 @@
+21
+apa
+3
+22
+suc
+6
+23
+corn
+1
+24
+cioclata
+7
